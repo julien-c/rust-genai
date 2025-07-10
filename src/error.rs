@@ -40,6 +40,10 @@ pub enum Error {
 	#[display("Invalid JSON response element: {info}")]
 	InvalidJsonResponseElement { info: &'static str },
 
+	// -- Rate Limiting
+	#[display("Rate limit exceeded for model '{model_iden}'. Please retry after some time.")]
+	RateLimit { model_iden: ModelIden },
+
 	// -- Auth
 	#[display("Model '{model_iden}' requires an API key.")]
 	RequiresApiKey { model_iden: ModelIden },
@@ -120,5 +124,51 @@ pub enum Error {
 // }
 
 impl std::error::Error for Error {}
+
+impl Error {
+	/// Check if a webc::Error represents a rate limit error and convert it appropriately
+	pub fn from_webc_error_for_model(model_iden: ModelIden, webc_error: webc::Error) -> Self {
+		if Self::is_rate_limit_error(&webc_error) {
+			Error::RateLimit { model_iden }
+		} else {
+			Error::WebModelCall { model_iden, webc_error }
+		}
+	}
+
+	/// Check if a webc::Error represents a rate limit error for adapter calls
+	pub fn from_webc_error_for_adapter(adapter_kind: AdapterKind, webc_error: webc::Error) -> Self {
+		// For adapter calls, we don't have a model_iden, so we stick with the existing behavior
+		Error::WebAdapterCall {
+			adapter_kind,
+			webc_error,
+		}
+	}
+
+	/// Detect if a webc::Error represents a rate limit condition
+	fn is_rate_limit_error(webc_error: &webc::Error) -> bool {
+		match webc_error {
+			webc::Error::ResponseFailedStatus { status, body, .. } => {
+				// Check for HTTP 429 (Too Many Requests)
+				if status.as_u16() == 429 {
+					return true;
+				}
+
+				// Check for common rate limit error messages in the response body
+				let body_str = body.to_lowercase();
+				body_str.contains("rate limit")
+					|| body_str.contains("rate_limit")
+					|| body_str.contains("too many requests")
+					|| (body_str.contains("quota") && body_str.contains("exceeded"))
+					|| (body_str.contains("rate") && body_str.contains("exceeded"))
+					|| body_str.contains("throttle")
+					|| body_str.contains("requests per")
+					|| (body_str.contains("limit") && body_str.contains("exceeded"))
+					|| body_str.contains("sending requests too quickly")
+					|| body_str.contains("requests too quickly")
+			}
+			_ => false,
+		}
+	}
+}
 
 // endregion: --- Error Boilerplate

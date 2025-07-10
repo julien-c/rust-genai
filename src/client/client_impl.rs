@@ -61,14 +61,11 @@ impl Client {
 		let WebRequestData { headers, payload, url } =
 			AdapterDispatcher::to_web_request_data(target, ServiceType::Chat, chat_req, options_set.clone())?;
 
-		let web_res =
-			self.web_client()
-				.do_post(&url, &headers, payload)
-				.await
-				.map_err(|webc_error| Error::WebModelCall {
-					model_iden: model.clone(),
-					webc_error,
-				})?;
+		let web_res = self
+			.web_client()
+			.do_post(&url, &headers, payload)
+			.await
+			.map_err(|webc_error| Error::from_webc_error_for_model(model.clone(), webc_error))?;
 
 		let chat_res = AdapterDispatcher::to_chat_response(model, web_res, options_set)?;
 
@@ -109,10 +106,7 @@ impl Client {
 		let reqwest_builder = self
 			.web_client()
 			.new_req_builder(&url, &headers, payload)
-			.map_err(|webc_error| Error::WebModelCall {
-				model_iden: model.clone(),
-				webc_error,
-			})?;
+			.map_err(|webc_error| Error::from_webc_error_for_model(model.clone(), webc_error))?;
 
 		let res = AdapterDispatcher::to_chat_stream(model, reqwest_builder, options_set)?;
 

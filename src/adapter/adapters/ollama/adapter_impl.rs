@@ -39,10 +39,10 @@ impl Adapter for OllamaAdapter {
 
 		// TODO: Need to get the WebClient from the client.
 		let web_c = crate::webc::WebClient::default();
-		let mut res = web_c.do_get(&url, &[]).await.map_err(|webc_error| Error::WebAdapterCall {
-			adapter_kind,
-			webc_error,
-		})?;
+		let mut res = web_c
+			.do_get(&url, &[])
+			.await
+			.map_err(|webc_error| Error::from_webc_error_for_adapter(adapter_kind, webc_error))?;
 
 		let mut models: Vec<String> = Vec::new();
 
