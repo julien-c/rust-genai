@@ -19,6 +19,9 @@ const MODEL: &str = "deepseek-r1:1.5b"; // "deepseek-r1:8b" "deepseek-r1:1.5b"
 #[tokio::test]
 #[serial(ollama)]
 async fn test_chat_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	// NOTE: For now, the Ollama Deepseek Distilled model does not add .reasoning_content,
 	//       but has a <think> tag which is tested in test_chat_reasoning_normalize_ok.
 	common_tests::common_test_chat_simple_ok(MODEL, None).await
@@ -27,6 +30,9 @@ async fn test_chat_simple_ok() -> Result<()> {
 #[tokio::test]
 #[serial(ollama)]
 async fn test_chat_multi_system_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_multi_system_ok(MODEL).await
 }
 
@@ -34,18 +40,27 @@ async fn test_chat_multi_system_ok() -> Result<()> {
 #[serial(ollama)]
 async fn test_chat_json_mode_ok() -> Result<()> {
 	// Note: Ollama does not capture usage on json mode (TODO: need to check now (2025-02-02))
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_json_mode_ok(MODEL, None).await
 }
 
 #[tokio::test]
 #[serial(ollama)]
 async fn test_chat_temperature_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_temperature_ok(MODEL).await
 }
 
 #[tokio::test]
 #[serial(ollama)]
 async fn test_chat_stop_sequences_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stop_sequences_ok(MODEL).await
 }
 
@@ -53,6 +68,9 @@ async fn test_chat_stop_sequences_ok() -> Result<()> {
 #[tokio::test]
 #[serial(ollama)]
 async fn test_chat_reasoning_normalize_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_reasoning_normalize_ok(MODEL).await
 }
 // endregion: --- Chat
@@ -62,12 +80,18 @@ async fn test_chat_reasoning_normalize_ok() -> Result<()> {
 #[tokio::test]
 #[serial(ollama)]
 async fn test_chat_stream_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_simple_ok(MODEL, None).await
 }
 
 #[tokio::test]
 #[serial(ollama)]
 async fn test_chat_stream_capture_content_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_content_ok(MODEL).await
 }
 
@@ -85,6 +109,9 @@ async fn test_chat_stream_capture_content_ok() -> Result<()> {
 #[tokio::test]
 #[serial(ollama)]
 async fn test_resolver_auth_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_resolver_auth_ok(MODEL, AuthData::from_single("ollama")).await
 }
 
@@ -96,6 +123,9 @@ async fn test_resolver_auth_ok() -> Result<()> {
 #[tokio::test]
 #[serial(ollama)]
 async fn test_list_models() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_list_models(AdapterKind::Ollama, "gemma3:4b").await
 }
 

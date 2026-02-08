@@ -91,11 +91,18 @@ impl WebResponse {
 		if !status.is_success() {
 			let headers = res.headers().clone();
 			let body = res.text().await?;
-			return Err(Error::ResponseFailedStatus {
-				status,
-				body,
-				headers: Box::new(headers),
-			});
+			if status == StatusCode::TOO_MANY_REQUESTS {
+				return Err(Error::ResponseFailedRateLimit {
+					body,
+					headers: Box::new(headers),
+				});
+			} else {
+				return Err(Error::ResponseFailedStatus {
+					status,
+					body,
+					headers: Box::new(headers),
+				});
+			}
 		}
 
 		// Move the headers into a new HeaderMap

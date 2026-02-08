@@ -13,11 +13,17 @@ const MODEL: &str = "deepseek-reasoner";
 
 #[tokio::test]
 async fn test_chat_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_simple_ok(MODEL, Some(Check::REASONING)).await
 }
 
 #[tokio::test]
 async fn test_chat_multi_system_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_multi_system_ok(MODEL).await
 }
 
@@ -29,16 +35,25 @@ async fn test_chat_multi_system_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_chat_temperature_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_temperature_ok(MODEL).await
 }
 
 #[tokio::test]
 async fn test_chat_stop_sequences_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stop_sequences_ok(MODEL).await
 }
 
 #[tokio::test]
 async fn test_chat_reasoning_normalize_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_reasoning_normalize_ok(MODEL).await
 }
 // endregion: --- Chat
@@ -49,16 +64,25 @@ async fn test_chat_reasoning_normalize_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_chat_stream_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_simple_ok(MODEL, Some(Check::REASONING)).await
 }
 
 #[tokio::test]
 async fn test_chat_stream_capture_content_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_content_ok(MODEL).await
 }
 
 #[tokio::test]
 async fn test_chat_stream_capture_all_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_all_ok(MODEL, Some(Check::REASONING)).await
 }
 
@@ -68,6 +92,9 @@ async fn test_chat_stream_capture_all_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_resolver_auth_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("DEEPSEEK_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_resolver_auth_ok(MODEL, AuthData::from_env("DEEPSEEK_API_KEY")).await
 }
 

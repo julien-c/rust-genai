@@ -16,12 +16,18 @@ const MODEL_FOR_STREAMING: &str = "grok-3-beta";
 #[tokio::test]
 #[serial(xai)]
 async fn test_chat_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_simple_ok(MODEL, None).await
 }
 
 #[tokio::test]
 #[serial(xai)]
 async fn test_chat_multi_system_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_multi_system_ok(MODEL).await
 }
 
@@ -40,6 +46,9 @@ async fn test_chat_multi_system_ok() -> Result<()> {
 #[tokio::test]
 #[serial(xai)]
 async fn test_chat_temperature_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_temperature_ok(MODEL).await
 }
 
@@ -57,18 +66,27 @@ async fn test_chat_temperature_ok() -> Result<()> {
 #[tokio::test]
 #[serial(xai)]
 async fn test_chat_stream_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_simple_ok(MODEL_FOR_STREAMING, None).await
 }
 
 #[tokio::test]
 #[serial(xai)]
 async fn test_chat_stream_capture_content_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_content_ok(MODEL_FOR_STREAMING).await
 }
 
 #[tokio::test]
 #[serial(xai)]
 async fn test_chat_stream_capture_all_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_all_ok(MODEL_FOR_STREAMING, None).await
 }
 
@@ -79,6 +97,9 @@ async fn test_chat_stream_capture_all_ok() -> Result<()> {
 #[tokio::test]
 #[serial(xai)]
 async fn test_resolver_auth_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_resolver_auth_ok(MODEL, AuthData::from_env("XAI_API_KEY")).await
 }
 
@@ -89,6 +110,9 @@ async fn test_resolver_auth_ok() -> Result<()> {
 #[tokio::test]
 #[serial(xai)]
 async fn test_list_models() -> Result<()> {
+	if crate::support::skip_if_no_api_key("XAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_list_models(AdapterKind::Xai, "grok-3-beta").await
 }
 

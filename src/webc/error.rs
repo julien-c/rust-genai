@@ -18,6 +18,12 @@ pub enum Error {
 		headers: Box<HeaderMap>,
 	},
 
+	#[display("Rate limit reached (429). Response body:\n{body}")]
+	ResponseFailedRateLimit {
+		body: String,
+		headers: Box<HeaderMap>,
+	},
+
 	// -- Utils
 	#[display("JSON value extension error: {_0}")]
 	#[from]

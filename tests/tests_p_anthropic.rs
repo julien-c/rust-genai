@@ -20,30 +20,45 @@ const MODEL_NS: &str = "anthropic::claude-3-5-haiku-latest";
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_simple_ok(MODEL, None).await
 }
 
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_namespaced_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_simple_ok(MODEL_NS, None).await
 }
 
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_multi_system_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_multi_system_ok(MODEL).await
 }
 
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_temperature_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_temperature_ok(MODEL).await
 }
 
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_stop_sequences_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stop_sequences_ok(MODEL).await
 }
 
@@ -51,6 +66,9 @@ async fn test_chat_stop_sequences_ok() -> Result<()> {
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_json_mode_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_json_mode_ok(MODEL, Some(Check::USAGE)).await
 }
 
@@ -61,12 +79,18 @@ async fn test_chat_json_mode_ok() -> Result<()> {
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_cache_explicit_user_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_cache_explicit_user_ok(MODEL).await
 }
 
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_cache_explicit_system_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_cache_explicit_system_ok(MODEL).await
 }
 
@@ -77,18 +101,27 @@ async fn test_chat_cache_explicit_system_ok() -> Result<()> {
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_stream_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_simple_ok(MODEL, None).await
 }
 
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_stream_capture_content_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_content_ok(MODEL).await
 }
 
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_chat_stream_capture_all_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_all_ok(MODEL, None).await
 }
 // endregion: --- Chat Stream Tests
@@ -105,6 +138,9 @@ async fn test_chat_stream_capture_all_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_chat_image_b64_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_image_b64_ok(MODEL).await
 }
 
@@ -115,12 +151,18 @@ async fn test_chat_image_b64_ok() -> Result<()> {
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_tool_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_tool_simple_ok(MODEL, false).await
 }
 
 #[tokio::test]
 // #[serial(anthropic)]
 async fn test_tool_full_flow_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_tool_full_flow_ok(MODEL, false).await
 }
 
@@ -131,6 +173,9 @@ async fn test_tool_full_flow_ok() -> Result<()> {
 #[tokio::test]
 #[serial(anthropic)]
 async fn test_resolver_auth_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_resolver_auth_ok(MODEL, AuthData::from_env("ANTHROPIC_API_KEY")).await
 }
 
@@ -140,6 +185,9 @@ async fn test_resolver_auth_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_list_models() -> Result<()> {
+	if crate::support::skip_if_no_api_key("ANTHROPIC_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_list_models(AdapterKind::Anthropic, "claude-3-7-sonnet-latest").await
 }
 

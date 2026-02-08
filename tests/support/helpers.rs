@@ -66,6 +66,16 @@ pub fn validate_checks(checks: Option<Check>, valid_flags: Check) -> Result<()> 
 	Ok(())
 }
 
+pub fn skip_if_no_api_key(env_name: &str) -> bool {
+	match std::env::var(env_name) {
+		Ok(val) if !val.trim().is_empty() => false,
+		_ => {
+			println!("SKIPPING TEST (Reason: Env var '{env_name}' not set or empty)");
+			true
+		}
+	}
+}
+
 // endregion: --- Check Flags
 
 // region:    --- Stream Support

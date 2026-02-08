@@ -13,32 +13,50 @@ const MODEL_NS: &str = "ollama::gemma3:4b";
 
 #[tokio::test]
 async fn test_chat_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_simple_ok(MODEL, None).await
 }
 
 #[tokio::test]
 async fn test_chat_namespaced_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_simple_ok(MODEL_NS, None).await
 }
 
 #[tokio::test]
 async fn test_chat_multi_system_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_multi_system_ok(MODEL).await
 }
 
 #[tokio::test]
 async fn test_chat_json_mode_ok() -> Result<()> {
 	// Note: Ollama does not capture Uage when JSON mode.
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_json_mode_ok(MODEL, None).await
 }
 
 #[tokio::test]
 async fn test_chat_temperature_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_temperature_ok(MODEL).await
 }
 
 #[tokio::test]
 async fn test_chat_stop_sequences_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stop_sequences_ok(MODEL).await
 }
 
@@ -48,11 +66,17 @@ async fn test_chat_stop_sequences_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_chat_stream_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_simple_ok(MODEL, None).await
 }
 
 #[tokio::test]
 async fn test_chat_stream_capture_content_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_content_ok(MODEL).await
 }
 
@@ -69,6 +93,9 @@ async fn test_chat_stream_capture_content_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_resolver_auth_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_resolver_auth_ok(MODEL, AuthData::from_single("ollama")).await
 }
 
@@ -79,6 +106,9 @@ async fn test_resolver_auth_ok() -> Result<()> {
 /// NOTE this test assume the "gemma3:4b" is present.
 #[tokio::test]
 async fn test_list_models() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OLLAMA_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_list_models(AdapterKind::Ollama, "gemma3:4b").await
 }
 

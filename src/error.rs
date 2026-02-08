@@ -70,6 +70,18 @@ pub enum Error {
 		webc_error: webc::Error,
 	},
 
+	#[display("Rate limit reached for adapter '{adapter_kind}'.")]
+	WebAdapterRateLimit {
+		adapter_kind: AdapterKind,
+		webc_error: webc::Error,
+	},
+
+	#[display("Rate limit reached for model '{model_iden}'.")]
+	WebModelRateLimit {
+		model_iden: ModelIden,
+		webc_error: webc::Error,
+	},
+
 	// -- Chat Stream
 	#[display("Failed to parse stream data for model '{model_iden}'.\nCause: {serde_error}")]
 	StreamParse {

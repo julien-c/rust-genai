@@ -21,6 +21,9 @@ const MODEL_FOR_THINKING: &str = "o4-mini-medium";
 
 #[tokio::test]
 async fn test_chat_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	// NOTE 2025-01-31  - Reasoning_content or <think> content not supported by OpenAI at this point
 	//                    So, disabled for now
 	common_tests::common_test_chat_simple_ok(MODEL_FOR_THINKING, Some(Check::REASONING_USAGE)).await
@@ -28,16 +31,25 @@ async fn test_chat_simple_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_chat_multi_system_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_multi_system_ok(MODEL).await
 }
 
 #[tokio::test]
 async fn test_chat_json_mode_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_json_mode_ok(MODEL, Some(Check::USAGE)).await
 }
 
 #[tokio::test]
 async fn test_chat_json_structured_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_json_structured_ok(MODEL, Some(Check::USAGE)).await
 }
 
@@ -49,6 +61,9 @@ async fn test_chat_json_structured_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_chat_stop_sequences_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stop_sequences_ok(MODEL).await
 }
 
@@ -65,16 +80,25 @@ async fn test_chat_stop_sequences_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_chat_stream_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_simple_ok(MODEL, None).await
 }
 
 #[tokio::test]
 async fn test_chat_stream_capture_content_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_content_ok(MODEL).await
 }
 
 #[tokio::test]
 async fn test_chat_stream_capture_all_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_chat_stream_capture_all_ok(MODEL, None).await
 }
 
@@ -100,11 +124,17 @@ async fn test_chat_stream_capture_all_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_tool_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_tool_simple_ok(MODEL, true).await
 }
 
 #[tokio::test]
 async fn test_tool_full_flow_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_tool_full_flow_ok(MODEL, true).await
 }
 // endregion: --- Tool Tests
@@ -113,6 +143,9 @@ async fn test_tool_full_flow_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_resolver_auth_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_resolver_auth_ok(MODEL, AuthData::from_env("OPENAI_API_KEY")).await
 }
 
@@ -122,6 +155,9 @@ async fn test_resolver_auth_ok() -> Result<()> {
 
 #[tokio::test]
 async fn test_list_models() -> Result<()> {
+	if crate::support::skip_if_no_api_key("OPENAI_API_KEY") {
+		return Ok(());
+	}
 	common_tests::common_test_list_models(AdapterKind::OpenAI, "gpt-4o").await
 }
 

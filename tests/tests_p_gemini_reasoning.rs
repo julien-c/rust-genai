@@ -11,6 +11,9 @@ const MODEL: &str = "gemini-2.5-flash-preview-04-17"; // can add "-medium" .. su
 
 #[tokio::test]
 async fn test_chat_simple_ok() -> Result<()> {
+	if crate::support::skip_if_no_api_key("GEMINI_API_KEY") {
+		return Ok(());
+	}
 	// NOTE: At this point, gemini 2.5 does not seems to give back reasonning content.
 	//       But it should have REASONING_USAGE
 	common_tests::common_test_chat_simple_ok(MODEL, Some(Check::REASONING_USAGE)).await
